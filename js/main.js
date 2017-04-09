@@ -22,28 +22,27 @@ function showTime () {
   $('#time').html(clock('time'))
 }
 showTime()
-// interval variables
-var changeTime = setInterval(showTime, 1000)
-var changeHexColor = setInterval(changeHexBackgound, 1000)
-// var changeHexTime = setInterval(clock('hexTime'), 1000)
+function showHexTime () {
+  $('#time').html(clock('hexTime'))
+}
 
 function changeHexBackgound () {
   $('body').css('background-color', clock('hexColor'))
+  var changeHexColor = setInterval(changeHexBackgound, 1000)
 }
 changeHexBackgound()
-
 
 console.log(clock('hexColor'))
 
 function hexOnHover () {
-  $('#time').html(clock('hexTime'))
   clearInterval(changeTime)
-  changeHexColor = setInterval(changeHexBackgound, 1000)
+  showHexTime()
 }
 
 function timeOffHover () {
-  $('#time').html(clock('time'))
+  clearInterval(changeHexTime)
   changeTime = setInterval(showTime, 1000)
+  showTime()
 }
 
 function addZeroToBeggining (input) {
@@ -55,5 +54,8 @@ function addZeroToBeggining (input) {
 }
 
 $('#time').hover(hexOnHover, timeOffHover)
-// $('#time').on('mouseover', changeToHex)
-// $('#time').on('mouseleave', clock)
+
+// interval variables
+var changeTime = setInterval(showTime, 1000)
+var changeHexTime = setInterval(showHexTime, 1000)
+console.log(changeTime)
