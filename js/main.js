@@ -54,6 +54,6 @@ function addZeroToBeggining (input) {
   }
 }
 
-$('#time').hover(hexOnHover, showTime)
+$('#time').hover(hexOnHover, timeOffHover)
 // $('#time').on('mouseover', changeToHex)
 // $('#time').on('mouseleave', clock)
