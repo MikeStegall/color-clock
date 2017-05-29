@@ -1,49 +1,49 @@
 // variable
 /* global $ */
 
+let isHex = false
+
 // get the current in current time zone
-function clock (input) {
-  var time = new Date()
-  var localTime = time.toLocaleTimeString()
-  var hexHour = addZeroToBeggining(time.getHours().toString(16))
-  var hexMin = addZeroToBeggining(time.getMinutes().toString(16))
-  var hexSec = addZeroToBeggining(time.getSeconds().toString(16))
-  var hexTime = '#' + hexHour + ':' + hexMin + ':' + hexSec
-  var hexColor = '#' + hexHour + hexMin + hexSec
-  if (input === 'time') {
+function getCurrentTime (input) {
+  let time = new Date()
+  let localTime = time.toLocaleTimeString()
+  let hexHour = addZeroToBeggining(time.getHours().toString(16))
+  let hexMin = addZeroToBeggining(time.getMinutes().toString(16))
+  let hexSec = addZeroToBeggining(time.getSeconds().toString(16))
+  let hexTime = '#' + hexHour + ':' + hexMin + ':' + hexSec
+  let hexColor = '#' + hexHour + hexMin + hexSec
+  if (input === 'time' && isHex === false) {
     return localTime
-  } else if (input === 'hexTime') {
+  } else if (input === 'hexTime' && isHex === true) {
     return hexTime
   } else if (input === 'hexColor') {
     return hexColor
   }
 }
-function showTime () {
-  $('#time').html(clock('time'))
+
+function setNormalTime () {
+  $('#time').html(getCurrentTime('time'))
 }
-showTime()
-function showHexTime () {
-  $('#time').html(clock('hexTime'))
+
+function setHexTime () {
+  $('#time').html(getCurrentTime('hexTime'))
 }
 
 function changeHexBackgound () {
-  $('body').css('background-color', clock('hexColor'))
-  var changeHexColor = setInterval(changeHexBackgound, 1000)
+  $('body').css('background-color', getCurrentTime('hexColor'))
 }
 changeHexBackgound()
 
-console.log(clock('hexColor'))
-
-function hexOnHover () {
-  clearInterval(changeTime)
-  showHexTime()
+function mouseEnterTime () {
+  isHex = true
+  setHexTime()
 }
 
-function timeOffHover () {
-  clearInterval(changeHexTime)
-  changeTime = setInterval(showTime, 1000)
-  showTime()
+function mouseLeaveTime () {
+  isHex = false
+  setNormalTime()
 }
+mouseLeaveTime()
 
 function addZeroToBeggining (input) {
   if (input.length === 1) {
@@ -53,9 +53,21 @@ function addZeroToBeggining (input) {
   }
 }
 
-$('#time').hover(hexOnHover, timeOffHover)
+function tickTock () {
+  let changeHexColor = setInterval(changeHexBackgound, ONE_SECOND)
+  let changeTime = setInterval(setNormalTime, ONE_SECOND)
+  let changeHexTime = setInterval(setHexTime, 1000)
+  $('.bar').css('width', fillBar)
+}
 
-// interval variables
-var changeTime = setInterval(showTime, 1000)
-var changeHexTime = setInterval(showHexTime, 1000)
-console.log(changeTime)
+let ONE_SECOND = 1 * 1000
+window.setInterval(tickTock, ONE_SECOND)
+
+function fillBar () {
+  let percent = new Date().getSeconds()
+  let percentBar = ((percent * 100) / 60) + '%'
+  return percentBar
+}
+
+$('#time').on('mouseenter', mouseEnterTime)
+$('#time').on('mouseleave', mouseLeaveTime)
