@@ -54,13 +54,13 @@ function addZeroToBeggining (input) {
 }
 
 function tickTock () {
-  let changeHexColor = setInterval(changeHexBackgound, ONE_SECOND)
-  let changeTime = setInterval(setNormalTime, ONE_SECOND)
-  let changeHexTime = setInterval(setHexTime, 1000)
+  setInterval(changeHexBackgound, ONE_SECOND)
+  setInterval(setNormalTime, ONE_SECOND)
+  setInterval(setHexTime, ONE_SECOND)
   $('.bar').css('width', fillBar)
 }
 
-let ONE_SECOND = 1 * 1000
+const ONE_SECOND = 1 * 1000
 window.setInterval(tickTock, ONE_SECOND)
 
 function fillBar () {
