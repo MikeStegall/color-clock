@@ -6,7 +6,8 @@ body {
 margin: auto;
 position: absolute;
 top: 50%;
-left: 48%;
+left: 50%;
+width: 158px;
 }
 #time{
 text-align: center;
