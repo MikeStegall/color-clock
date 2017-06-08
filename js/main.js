@@ -12,9 +12,9 @@ function getCurrentTime (input) {
   let hexSec = addZeroToBeggining(time.getSeconds().toString(16))
   let hexTime = '#' + hexHour + ':' + hexMin + ':' + hexSec
   let hexColor = '#' + hexHour + hexMin + hexSec
-  if (input === 'time' && isHex === false) {
+  if (input === 'time' && !isHex) {
     return localTime
-  } else if (input === 'hexTime' && isHex === true) {
+  } else if (input === 'hexTime' && isHex) {
     return hexTime
   } else if (input === 'hexColor') {
     return hexColor
@@ -54,10 +54,10 @@ function addZeroToBeggining (input) {
 }
 
 function tickTock () {
-  setInterval(changeHexBackgound, ONE_SECOND)
-  setInterval(setNormalTime, ONE_SECOND)
-  setInterval(setHexTime, ONE_SECOND)
-  $('.bar').css('width', fillBar)
+  changeHexBackgound()
+  setNormalTime()
+  setHexTime()
+  $('.bar').css('width', fillBar())
 }
 
 const ONE_SECOND = 1 * 1000
