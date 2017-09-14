@@ -1,12 +1,12 @@
 body {
-  height: 100vh;
+  height: 75vh;
 }
 
 .clock {
 margin: auto;
 position: absolute;
 top: 50%;
-left: 50%;
+left: 43%;
 width: 158px;
 }
 #time{
